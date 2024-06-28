@@ -1,5 +1,5 @@
 //
-//  ImageCarousel.swift
+//  ImageCarouselHorizontal.swift
 //  MovieStreamingUI
 //
 //  Created by Shameem Reza on 31/3/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// - 轮播组件
-struct ImageCarousel<Content: View, T: Identifiable>: View {
+struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
     var list: [T]
     
@@ -81,7 +81,7 @@ struct ImageCarousel<Content: View, T: Identifiable>: View {
     }
 }
 
-struct SnapCarousel_Previews: PreviewProvider {
+struct ImageCarouselHorizontal_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

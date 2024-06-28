@@ -9,12 +9,18 @@ import SwiftUI
 
 struct Home: View {
     @State var currentIndex: Int = 0
+    @State var selectedDirection: Direction = .horizontal
+    
+    enum Direction: String, CaseIterable {
+        case horizontal = "水平"
+        case vertical = "垂直"
+    }
     
     struct Movie: Identifiable {
         var id = UUID().uuidString
         var movieThumb: String
     }
-
+    
     var movies: [Movie] = [
         Movie(movieThumb: "m1"),
         Movie(movieThumb: "m2"),
@@ -31,20 +37,49 @@ struct Home: View {
             BGView()
             
             VStack {
-                ImageCarousel(
-                    spacing: 20,
-                    trialingSpace:40,
-                    index: $currentIndex,
-                    items: movies
-                ) { movie in
-                    Image(movie.movieThumb)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(15)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                if selectedDirection == .horizontal {
+                    /// - 水平滚动
+                    ImageCarouselHorizontal(
+                        spacing: 20,
+                        trialingSpace:40,
+                        index: $currentIndex,
+                        items: movies
+                    ) { movie in
+                        Image(movie.movieThumb)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(15)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                } else {
+                    /// - 垂直滚动
+                    ImageCarouselVertical(
+                        spacing: 20,
+                        trialingSpace:40,
+                        index: $currentIndex,
+                        items: movies
+                    ) { movie in
+                        Image(movie.movieThumb)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(15)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    .padding(.top, 70)
                 }
             }
-            
+            .frame(maxHeight: .infinity)
+            .overlay(alignment: .top) {
+                Picker("", selection: $selectedDirection) {
+                    ForEach(Direction.allCases, id: \.rawValue) { direction in
+                        Text("\(direction.rawValue)")
+                            .tag(direction)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(20)
+                .background(.ultraThinMaterial)
+            }
         }
     }
     
@@ -65,7 +100,7 @@ struct Home: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut, value: currentIndex)
-                        
+            
             LinearGradient(colors: [
                 .black,
                 .clear,
@@ -81,6 +116,6 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
+        
     }
 }
