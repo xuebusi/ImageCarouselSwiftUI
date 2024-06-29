@@ -14,6 +14,7 @@ struct Home: View {
     enum Direction: String, CaseIterable {
         case horizontal = "水平"
         case vertical = "垂直"
+        case layer = "层叠"
     }
     
     struct Movie: Identifiable {
@@ -21,7 +22,7 @@ struct Home: View {
         var movieThumb: String
     }
     
-    var movies: [Movie] = [
+    let movieList = [
         Movie(movieThumb: "m1"),
         Movie(movieThumb: "m2"),
         Movie(movieThumb: "m3"),
@@ -32,9 +33,15 @@ struct Home: View {
         Movie(movieThumb: "m8"),
     ]
     
+    @State var movies: [Movie] = []
+    
+    init() {
+        self.movies = movieList
+    }
+    
     var body: some View {
         ZStack {
-            BGView()
+            //BGView()
             
             VStack {
                 if selectedDirection == .horizontal {
@@ -51,7 +58,7 @@ struct Home: View {
                             .cornerRadius(15)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                } else {
+                } else if selectedDirection == .vertical {
                     /// - 垂直滚动
                     ImageCarouselVertical(
                         spacing: 20,
@@ -66,6 +73,23 @@ struct Home: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .padding(.top, 70)
+                } else {
+                    if !movies.isEmpty {
+                        ImageCarouselLayer(items: $movies) { movie in
+                            Image(movie.movieThumb)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .cornerRadius(15)
+                                .padding(20)
+                        } onItemRemoved: { movie in
+                            print("图片\(movie.movieThumb)被移除了")
+                        }
+                    } else {
+                        Text("没有图片了")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
             }
             .frame(maxHeight: .infinity)
@@ -79,6 +103,12 @@ struct Home: View {
                 .pickerStyle(.segmented)
                 .padding(20)
                 .background(.ultraThinMaterial)
+                .onAppear {
+                    self.movies = movieList
+                }
+                .onChange(of: selectedDirection) { _, _ in
+                    self.movies = movieList
+                }
             }
         }
     }
@@ -116,6 +146,6 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        
+            .preferredColorScheme(.dark)
     }
 }
