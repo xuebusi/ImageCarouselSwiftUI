@@ -84,5 +84,6 @@ struct ImageCarouselVertical<Content: View, T: Identifiable>: View {
 struct ImageCarouselVertical_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

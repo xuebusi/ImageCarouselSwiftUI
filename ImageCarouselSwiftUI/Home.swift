@@ -15,6 +15,7 @@ struct Home: View {
         case horizontal = "水平"
         case vertical = "垂直"
         case layer = "层叠"
+        case star = "星标"
     }
     
     struct Movie: Identifiable {
@@ -73,7 +74,7 @@ struct Home: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .padding(.top, 70)
-                } else {
+                } else if selectedDirection == .layer {
                     if !movies.isEmpty {
                         ImageCarouselLayer(items: $movies) { movie in
                             Image(movie.movieThumb)
@@ -83,6 +84,23 @@ struct Home: View {
                                 .padding(20)
                         } onItemRemoved: { movie in
                             print("图片\(movie.movieThumb)被移除了")
+                        }
+                    } else {
+                        Text("没有图片了")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                } else {
+                    if !movies.isEmpty {
+                        PhotoStarMarkCarousel(items: $movies, currentIndex: $currentIndex) { movie in
+                            Image(movie.movieThumb)
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .padding(.horizontal, 10)
+                        } onItemRemoved: { movie in
+                            print("[\(currentIndex)] 图片\(movie.movieThumb)被移除了")
                         }
                     } else {
                         Text("没有图片了")
