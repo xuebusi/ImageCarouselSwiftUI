@@ -8,12 +8,12 @@
 import SwiftUI
 
 /// 照片星标组件：上下滑动移除图片，左右滑动切换图片
-struct PhotoStarMarkCarousel<Content: View, T: Identifiable>: View {
+struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, Movie: Identifiable>: View {
     @Binding var currentIndex: Int
-    var content: (T) -> Content
-    @Binding var list: [T]
-    // 删除回调
-    private let onItemRemoved: (T) -> Void
+    var content: (Movie) -> Content
+    var thumbnailContent: (Movie) -> ThumbnailContent
+    @Binding var list: [Movie]
+    private let onItemRemoved: (Movie) -> Void
     
     // 屏幕宽度
     private let screenWidth = UIScreen.main.bounds.width
@@ -69,13 +69,15 @@ struct PhotoStarMarkCarousel<Content: View, T: Identifiable>: View {
         }
     }
     
-    init(items: Binding<[T]>,
+    init(items: Binding<[Movie]>,
          currentIndex: Binding<Int>,
-         @ViewBuilder content: @escaping (T)->Content,
-         onItemRemoved: @escaping (T) -> Void) {
+         @ViewBuilder content: @escaping (Movie) -> Content,
+         @ViewBuilder thumbnailContent: @escaping (Movie) -> ThumbnailContent,
+         onItemRemoved: @escaping (Movie) -> Void) {
         self._list = items
         self._currentIndex = currentIndex
         self.content = content
+        self.thumbnailContent = thumbnailContent
         self.onItemRemoved = onItemRemoved
     }
     
@@ -101,6 +103,9 @@ struct PhotoStarMarkCarousel<Content: View, T: Identifiable>: View {
                 .frame(maxHeight: .infinity)
                 .offset(x: -CGFloat(currentIndex) * size.width)
                 .animation(.easeInOut(duration: 0.3), value: currentIndex)
+            }
+            .overlay(alignment: .bottom) {
+                ThumbnailListView(images: $list, currentIndex: $currentIndex, thumbnailContent: thumbnailContent)
             }
         }
         .statusBarHidden(isHiddenStatusBar) // 控制状态栏的隐藏
@@ -240,6 +245,51 @@ struct PhotoStarMarkCarousel<Content: View, T: Identifiable>: View {
             list.remove(at: currentIndex)
             onItemRemoved(item)
             currentIndex = min(currentIndex, list.count - 1)
+        }
+    }
+}
+
+private struct ThumbnailListView<Movie: Identifiable, ThumbnailContent: View>: View {
+    @Binding var images: [Movie]
+    @Binding var currentIndex: Int
+    var thumbnailContent: (Movie) -> ThumbnailContent
+
+    init(images: Binding<[Movie]>, currentIndex: Binding<Int>, @ViewBuilder thumbnailContent: @escaping (Movie) -> ThumbnailContent) {
+        self._images = images
+        self._currentIndex = currentIndex
+        self.thumbnailContent = thumbnailContent
+    }
+
+    var body: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(images.indices, id: \.self) { index in
+                        thumbnailContent(images[index])
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(Color.white, lineWidth: currentIndex == index ? 2 : 0)
+                            }
+                            .onTapGesture {
+                                withAnimation {
+                                    currentIndex = index
+                                }
+                            }
+                            .id(index)
+                    }
+                }
+                .padding(.horizontal, 10)
+                .frame(height: 60)
+                .frame(maxWidth: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onAppear { proxy.scrollTo(0) }
+                .onChange(of: currentIndex) { _, _ in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        proxy.scrollTo(currentIndex, anchor: .center)
+                    }
+                }
+            }
         }
     }
 }

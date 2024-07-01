@@ -20,25 +20,21 @@ struct Home: View {
     
     struct Movie: Identifiable {
         var id = UUID().uuidString
-        var movieThumb: String
+        var thumb: String
     }
     
     let movieList = [
-        Movie(movieThumb: "m1"),
-        Movie(movieThumb: "m2"),
-        Movie(movieThumb: "m3"),
-        Movie(movieThumb: "m4"),
-        Movie(movieThumb: "m5"),
-        Movie(movieThumb: "m6"),
-        Movie(movieThumb: "m7"),
-        Movie(movieThumb: "m8"),
+        Movie(thumb: "m1"),
+        Movie(thumb: "m2"),
+        Movie(thumb: "m3"),
+        Movie(thumb: "m4"),
+        Movie(thumb: "m5"),
+        Movie(thumb: "m6"),
+        Movie(thumb: "m7"),
+        Movie(thumb: "m8"),
     ]
     
     @State var movies: [Movie] = []
-    
-    init() {
-        self.movies = movieList
-    }
     
     var body: some View {
         ZStack {
@@ -53,7 +49,7 @@ struct Home: View {
                         index: $currentIndex,
                         items: movies
                     ) { movie in
-                        Image(movie.movieThumb)
+                        Image(movie.thumb)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(15)
@@ -67,7 +63,7 @@ struct Home: View {
                         index: $currentIndex,
                         items: movies
                     ) { movie in
-                        Image(movie.movieThumb)
+                        Image(movie.thumb)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(15)
@@ -77,13 +73,13 @@ struct Home: View {
                 } else if selectedDirection == .layer {
                     if !movies.isEmpty {
                         ImageCarouselLayer(items: $movies) { movie in
-                            Image(movie.movieThumb)
+                            Image(movie.thumb)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .cornerRadius(15)
                                 .padding(20)
                         } onItemRemoved: { movie in
-                            print("图片\(movie.movieThumb)被移除了")
+                            print("图片\(movie.thumb)被移除了")
                         }
                     } else {
                         Text("没有图片了")
@@ -94,14 +90,21 @@ struct Home: View {
                 } else {
                     if !movies.isEmpty {
                         PhotoStarMarkCarousel(items: $movies, currentIndex: $currentIndex) { movie in
-                            Image(movie.movieThumb)
+                            Image(movie.thumb)
                                 .resizable()
                                 .scaledToFit()
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .padding(.horizontal, 10)
+                        } thumbnailContent: { movie in
+                            Image(movie.thumb)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipped()
                         } onItemRemoved: { movie in
-                            print("[\(currentIndex)] 图片\(movie.movieThumb)被移除了")
+                            print("Movie removed: \(movie.thumb)")
                         }
+                        
                     } else {
                         Text("没有图片了")
                             .font(.headline)
@@ -124,9 +127,6 @@ struct Home: View {
                 .onAppear {
                     self.movies = movieList
                 }
-                .onChange(of: selectedDirection) { _, _ in
-                    self.movies = movieList
-                }
             }
         }
     }
@@ -138,7 +138,7 @@ struct Home: View {
             
             TabView(selection: $currentIndex) {
                 ForEach(movies.indices, id: \.self) {index in
-                    Image(movies[index].movieThumb)
+                    Image(movies[index].thumb)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: size.width, height: size.height)
