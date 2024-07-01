@@ -8,12 +8,12 @@
 import SwiftUI
 
 /// 照片星标组件：上下滑动移除图片，左右滑动切换图片
-struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, Movie: Identifiable>: View {
+struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, T: Identifiable>: View {
     @Binding var currentIndex: Int
-    var content: (Movie) -> Content
-    var thumbnailContent: (Movie) -> ThumbnailContent
-    @Binding var list: [Movie]
-    private let onItemRemoved: (Movie) -> Void
+    var content: (T) -> Content
+    var thumbnailContent: (T) -> ThumbnailContent
+    @Binding var list: [T]
+    private let onItemRemoved: (T) -> Void
     
     // 屏幕宽度
     private let screenWidth = UIScreen.main.bounds.width
@@ -69,11 +69,11 @@ struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, Movie: Ident
         }
     }
     
-    init(items: Binding<[Movie]>,
+    init(items: Binding<[T]>,
          currentIndex: Binding<Int>,
-         @ViewBuilder content: @escaping (Movie) -> Content,
-         @ViewBuilder thumbnailContent: @escaping (Movie) -> ThumbnailContent,
-         onItemRemoved: @escaping (Movie) -> Void) {
+         @ViewBuilder content: @escaping (T) -> Content,
+         @ViewBuilder thumbnailContent: @escaping (T) -> ThumbnailContent,
+         onItemRemoved: @escaping (T) -> Void) {
         self._list = items
         self._currentIndex = currentIndex
         self.content = content
@@ -249,12 +249,12 @@ struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, Movie: Ident
     }
 }
 
-private struct ThumbnailListView<Movie: Identifiable, ThumbnailContent: View>: View {
-    @Binding var images: [Movie]
+private struct ThumbnailListView<T: Identifiable, ThumbnailContent: View>: View {
+    @Binding var images: [T]
     @Binding var currentIndex: Int
-    var thumbnailContent: (Movie) -> ThumbnailContent
+    var thumbnailContent: (T) -> ThumbnailContent
 
-    init(images: Binding<[Movie]>, currentIndex: Binding<Int>, @ViewBuilder thumbnailContent: @escaping (Movie) -> ThumbnailContent) {
+    init(images: Binding<[T]>, currentIndex: Binding<Int>, @ViewBuilder thumbnailContent: @escaping (T) -> ThumbnailContent) {
         self._images = images
         self._currentIndex = currentIndex
         self.thumbnailContent = thumbnailContent
