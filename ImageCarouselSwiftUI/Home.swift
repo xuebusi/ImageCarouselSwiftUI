@@ -6,10 +6,32 @@
 //
 
 import SwiftUI
+struct Movie: Identifiable {
+    var id = UUID().uuidString
+    var thumb: String
+}
 
+let movieList = [
+    Movie(thumb: "m1"),
+    Movie(thumb: "m2"),
+    Movie(thumb: "m3"),
+    Movie(thumb: "m4"),
+    Movie(thumb: "m5"),
+    Movie(thumb: "m6"),
+    Movie(thumb: "m7"),
+    Movie(thumb: "m8"),
+    Movie(thumb: "m1"),
+    Movie(thumb: "m2"),
+    Movie(thumb: "m3"),
+    Movie(thumb: "m4"),
+    Movie(thumb: "m5"),
+    Movie(thumb: "m6"),
+    Movie(thumb: "m7"),
+    Movie(thumb: "m8"),
+]
 struct Home: View {
     @State var currentIndex: Int = 0
-    @State var selectedDirection: Direction = .horizontal
+    @State var selectedDirection: Direction = .star
     
     enum Direction: String, CaseIterable {
         case horizontal = "水平"
@@ -18,21 +40,7 @@ struct Home: View {
         case star = "星标"
     }
     
-    struct Movie: Identifiable {
-        var id = UUID().uuidString
-        var thumb: String
-    }
-    
-    let movieList = [
-        Movie(thumb: "m1"),
-        Movie(thumb: "m2"),
-        Movie(thumb: "m3"),
-        Movie(thumb: "m4"),
-        Movie(thumb: "m5"),
-        Movie(thumb: "m6"),
-        Movie(thumb: "m7"),
-        Movie(thumb: "m8"),
-    ]
+
     
     @State var movies: [Movie] = []
     

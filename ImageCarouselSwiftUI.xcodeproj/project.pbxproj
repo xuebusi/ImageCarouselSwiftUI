@@ -20,6 +20,7 @@
 		2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */; };
 		2BDE0C072C2F72BC00AD3552 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0C062C2F72BC00AD3552 /* SwiftUIView.swift */; };
 		2BDE0C092C2F9DD100AD3552 /* ImageCarouselLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0C082C2F9DD100AD3552 /* ImageCarouselLayer.swift */; };
+		2BDFB6042C32AF71001B419C /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDFB6032C32AF71001B419C /* ThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView2.swift; sourceTree = "<group>"; };
 		2BDE0C062C2F72BC00AD3552 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		2BDE0C082C2F9DD100AD3552 /* ImageCarouselLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselLayer.swift; sourceTree = "<group>"; };
+		2BDFB6032C32AF71001B419C /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */,
 				2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */,
 				2B588BB22C3034A10014EE68 /* DraggableBallView.swift */,
+				2BDFB6032C32AF71001B419C /* ThumbnailView.swift */,
 			);
 			path = ImageCarouselSwiftUI;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */,
 				2B186E832C2EEFCA0073EC79 /* ImageCarouselVertical.swift in Sources */,
 				2BDE0C092C2F9DD100AD3552 /* ImageCarouselLayer.swift in Sources */,
+				2BDFB6042C32AF71001B419C /* ThumbnailView.swift in Sources */,
 				2B0BE4A82C3111A300ED835C /* PhotoStarMarkCarousel.swift in Sources */,
 				2B588BB12C2FEBCE0014EE68 /* SwiftUIView3.swift in Sources */,
 			);

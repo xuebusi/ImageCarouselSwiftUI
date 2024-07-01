@@ -105,7 +105,10 @@ struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, T: Identifia
                 .animation(.easeInOut(duration: 0.3), value: currentIndex)
             }
             .overlay(alignment: .bottom) {
-                ThumbnailListView(images: $list, currentIndex: $currentIndex, thumbnailContent: thumbnailContent)
+                if !isHiddenStatusBar {
+                    ThumbnailListView(images: $list, currentIndex: $currentIndex, thumbnailContent: thumbnailContent)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
         }
         .statusBarHidden(isHiddenStatusBar) // 控制状态栏的隐藏
@@ -227,10 +230,10 @@ struct PhotoStarMarkCarousel<Content: View, ThumbnailContent: View, T: Identifia
             currentIndex = min(currentIndex + 1, list.count - 1)
         }
         /// - 索引更新后重置新图片的位置等参数
-        withAnimation {
+        //withAnimation {
             offset = .zero
             rotation = .zero
-        }
+        //}
     }
     
     /// - 更改当前图片索引
