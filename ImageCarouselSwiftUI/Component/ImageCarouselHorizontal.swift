@@ -14,16 +14,19 @@ struct ImageCarouselHorizontalExample: View {
         var image: String
     }
     
-    let images: [SVMovie] = (1...8).map({ SVMovie(image: "m\($0)") })
+    @State private var movies: [SVMovie] = []
     @State var currentIndex: Int = 0
     
     var body: some View {
-        ImageCarouselHorizontal(index: $currentIndex, items: images) { movie in
+        ImageCarouselHorizontal(index: $currentIndex, items: movies) { movie in
             Image(movie.image)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+        }
+        .onAppear {
+            initData()
         }
         .overlay {
             /// - 展示当前图片的索引
@@ -33,6 +36,10 @@ struct ImageCarouselHorizontalExample: View {
                 .background(.blue)
                 .clipShape(Circle())
         }
+    }
+    
+    private func initData() {
+        self.movies = (1...8).map({ SVMovie(image: "m\($0)") })
     }
 }
 

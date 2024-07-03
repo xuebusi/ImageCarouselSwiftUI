@@ -30,14 +30,18 @@ struct ImageCarouselLayerExample: View {
                 }
             } else {
                 Button("重置") {
-                    self.movies = (1...8).map({ SVMovie(image: "m\($0)") })
+                    initData()
                 }
                 .buttonStyle(.borderedProminent)
             }
         }
         .onAppear {
-            self.movies = (1...8).map({ SVMovie(image: "m\($0)") })
+            initData()
         }
+    }
+    
+    private func initData() {
+        self.movies = (1...8).map({ SVMovie(image: "m\($0)") })
     }
 }
 

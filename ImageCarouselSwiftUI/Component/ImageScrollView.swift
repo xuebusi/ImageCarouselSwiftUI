@@ -14,16 +14,19 @@ struct ImageScrollViewExample: View {
         var image: String
     }
     
-    let images: [SVMovie] = (1...8).map({ SVMovie(image: "m\($0)") })
+    @State private var movies: [SVMovie] = []
     @State var currentIndex: Int = 0
     
     var body: some View {
-        ImageScrollView(items: images, currentIndex: $currentIndex, axis: .horizontal) { movie in
+        ImageScrollView(items: movies, currentIndex: $currentIndex, axis: .horizontal) { movie in
             Image(movie.image)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
+        }
+        .onAppear {
+            initData()
         }
         .overlay {
             /// - 展示当前图片的索引
@@ -32,6 +35,27 @@ struct ImageScrollViewExample: View {
                 .font(.title)
                 .background(.blue)
                 .clipShape(Circle())
+        }
+    }
+    
+    private func initData() {
+        self.movies = (1...8).map({ SVMovie(image: "m\($0)") })
+    }
+}
+
+struct HVStack<Content: View>: View {
+    var axis: Axis.Set
+    var content: () -> Content
+    
+    var body: some View {
+        if axis == .vertical {
+            VStack {
+                content()
+            }
+        } else {
+            HStack {
+                content()
+            }
         }
     }
 }
@@ -57,21 +81,10 @@ struct ImageScrollView<Content: View, T: Identifiable>: View {
         GeometryReader {
             let size = $0.size
             ScrollView(axis, showsIndicators: false) {
-                Group {
-                    if axis == .vertical {
-                        VStack(spacing: 0) {
-                            ForEach(list) { item in
-                                content(item)
-                                    .frame(width: size.width, height: size.height)
-                            }
-                        }
-                    } else {
-                        HStack(spacing: 0) {
-                            ForEach(list) { item in
-                                content(item)
-                                    .frame(width: size.width, height: size.height)
-                            }
-                        }
+                HVStack(axis: axis) {
+                    ForEach(list) { item in
+                        content(item)
+                            .frame(width: size.width, height: size.height)
                     }
                 }
                 .background(
