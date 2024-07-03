@@ -16,7 +16,7 @@
 		2B186E802C2EE44A0073EC79 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E7F2C2EE44A0073EC79 /* Home.swift */; };
 		2B186E832C2EEFCA0073EC79 /* ImageCarouselVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E822C2EEFCA0073EC79 /* ImageCarouselVertical.swift */; };
 		2B588BB12C2FEBCE0014EE68 /* SwiftUIView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */; };
-		2B588BB32C3034A10014EE68 /* DraggableBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB22C3034A10014EE68 /* DraggableBallView.swift */; };
+		2B588BB32C3034A10014EE68 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB22C3034A10014EE68 /* CarouselView.swift */; };
 		2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */; };
 		2B844BEE2C3387BC0092F837 /* LazyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B844BED2C3387BC0092F837 /* LazyScrollView.swift */; };
 		2B9724632C34D99B003C13EC /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9724622C34D99B003C13EC /* ImageScrollView.swift */; };
@@ -36,7 +36,7 @@
 		2B186E7F2C2EE44A0073EC79 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		2B186E822C2EEFCA0073EC79 /* ImageCarouselVertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselVertical.swift; sourceTree = "<group>"; };
 		2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView3.swift; sourceTree = "<group>"; };
-		2B588BB22C3034A10014EE68 /* DraggableBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableBallView.swift; sourceTree = "<group>"; };
+		2B588BB22C3034A10014EE68 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView2.swift; sourceTree = "<group>"; };
 		2B844BED2C3387BC0092F837 /* LazyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyScrollView.swift; sourceTree = "<group>"; };
 		2B9724622C34D99B003C13EC /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -84,7 +84,6 @@
 				2BDE0C062C2F72BC00AD3552 /* SwiftUIView.swift */,
 				2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */,
 				2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */,
-				2B588BB22C3034A10014EE68 /* DraggableBallView.swift */,
 				2BDFB6032C32AF71001B419C /* ThumbnailView.swift */,
 			);
 			path = ImageCarouselSwiftUI;
@@ -107,6 +106,7 @@
 				2B0BE4A72C3111A300ED835C /* PhotoStarMarkCarousel.swift */,
 				2B9724622C34D99B003C13EC /* ImageScrollView.swift */,
 				2B844BED2C3387BC0092F837 /* LazyScrollView.swift */,
+				2B588BB22C3034A10014EE68 /* CarouselView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -186,7 +186,7 @@
 				2B186E722C2EE3EB0073EC79 /* ContentView.swift in Sources */,
 				2BDE0C072C2F72BC00AD3552 /* SwiftUIView.swift in Sources */,
 				2B844BEE2C3387BC0092F837 /* LazyScrollView.swift in Sources */,
-				2B588BB32C3034A10014EE68 /* DraggableBallView.swift in Sources */,
+				2B588BB32C3034A10014EE68 /* CarouselView.swift in Sources */,
 				2B186E802C2EE44A0073EC79 /* Home.swift in Sources */,
 				2B186E702C2EE3EB0073EC79 /* ImageCarouselSwiftUIApp.swift in Sources */,
 				2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */,
