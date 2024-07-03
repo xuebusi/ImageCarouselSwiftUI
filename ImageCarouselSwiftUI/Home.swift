@@ -52,8 +52,6 @@ struct Home: View {
                 if selectedDirection == .horizontal {
                     /// - 水平滚动
                     ImageCarouselHorizontal(
-                        spacing: 20,
-                        trialingSpace:40,
                         index: $currentIndex,
                         items: movies
                     ) { movie in

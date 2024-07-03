@@ -7,20 +7,45 @@
 
 import SwiftUI
 
+/// - ImageCarouselHorizontal 组件使用示例
+struct ImageCarouselHorizontalExample: View {
+    struct SVMovie: Identifiable {
+        var id = UUID().uuidString
+        var image: String
+    }
+    
+    let images: [SVMovie] = (1...8).map({ SVMovie(image: "m\($0)") })
+    @State var currentIndex: Int = 0
+    
+    var body: some View {
+        ImageCarouselHorizontal(index: $currentIndex, items: images) { movie in
+            Image(movie.image)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(10)
+                .padding(.horizontal, 10)
+        }
+        .overlay {
+            /// - 展示当前图片的索引
+            Text("\(currentIndex)")
+                .padding()
+                .font(.title)
+                .background(.blue)
+                .clipShape(Circle())
+        }
+    }
+}
+
 /// - 轮播组件
 struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
     var list: [T]
     
-    var spacing: CGFloat
-    var trialingSpace: CGFloat
     @Binding var index: Int
     
-    init(spacing: CGFloat = 15, trialingSpace: CGFloat = 100, index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T)->Content) {
+    init(index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T)->Content) {
         
         self.list = items
-        self.spacing = spacing
-        self.trialingSpace = trialingSpace
         self._index = index
         self.content = content
     }
@@ -29,19 +54,18 @@ struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
     @State var currentIndex: Int = 0
     
     var body: some View {
-        GeometryReader{proxy in
+        GeometryReader {
+            let size = $0.size
             
-            let width = proxy.size.width - (trialingSpace - spacing)
-            
-            HStack(spacing: spacing) {
+            HStack(spacing: 0) {
                 ForEach(list){item in
                     content(item)
-                        .frame(width: proxy.size.width - trialingSpace)
-                        .offset(y: getOffset(item: item, width: width))
+                        .frame(width: size.width, height: size.height)
+                        .offset(y: getOffset(item: item, width: size.width))
                 }
             }
-            .padding(.horizontal, spacing)
-            .offset(x: (CGFloat(currentIndex) * -width) + offset)
+            .padding(.horizontal, 0)
+            .offset(x: (CGFloat(currentIndex) * -size.width) + offset)
             .gesture(
                 DragGesture()
                     .updating($offset, body: {value, out, _ in
@@ -49,7 +73,7 @@ struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
                     })
                     .onEnded({value in
                         let offsetX = value.translation.width
-                        let progress = -offsetX / width
+                        let progress = -offsetX / size.width
                         let roundIndex = progress.rounded()
                         
                         currentIndex = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
@@ -59,7 +83,7 @@ struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
                     })
                     .onChanged({value in
                         let offsetX = value.translation.width
-                        let progress = -offsetX / width
+                        let progress = -offsetX / size.width
                         let roundIndex = progress.rounded()
                         
                         index = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
@@ -67,6 +91,7 @@ struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
             )
         }
         .animation(.easeInOut, value: offset == 0)
+        .ignoresSafeArea()
     }
     
     func getOffset(item: T, width: CGFloat)->CGFloat {
@@ -81,9 +106,9 @@ struct ImageCarouselHorizontal<Content: View, T: Identifiable>: View {
     }
 }
 
-struct ImageCarouselHorizontal_Previews: PreviewProvider {
+struct ImageCarouselHorizontalExample_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ImageCarouselHorizontalExample()
             .preferredColorScheme(.dark)
     }
 }
