@@ -18,7 +18,7 @@ struct ImageScrollViewExample: View {
     @State var currentIndex: Int = 0
     
     var body: some View {
-        ImageScrollView(items: images, currentIndex: $currentIndex, axis: .vertical) { movie in
+        ImageScrollView(items: images, currentIndex: $currentIndex, axis: .horizontal) { movie in
             Image(movie.image)
                 .resizable()
                 .scaledToFit()
@@ -29,6 +29,7 @@ struct ImageScrollViewExample: View {
             /// - 展示当前图片的索引
             Text("\(currentIndex)")
                 .padding()
+                .font(.title)
                 .background(.blue)
                 .clipShape(Circle())
         }
@@ -45,7 +46,7 @@ struct ImageScrollView<Content: View, T: Identifiable>: View {
     @State private var offsetX: CGFloat = 0
     @State private var offsetY: CGFloat = 0
     
-    init(items: [T], currentIndex: Binding<Int>, axis: Axis.Set = .vertical, @ViewBuilder content: @escaping (T)->Content) {
+    init(items: [T], currentIndex: Binding<Int>, axis: Axis.Set = .horizontal, @ViewBuilder content: @escaping (T)->Content) {
         self.list = items
         self._currentIndex = currentIndex
         self.axis = axis
@@ -84,12 +85,17 @@ struct ImageScrollView<Content: View, T: Identifiable>: View {
             .scrollTargetBehavior(.paging)
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(ImageScrollPreferenceKey.self) { value in
+                print("\(String(format: "%.0f", abs(value)))")
                 if axis == .vertical {
                     offsetY = value
-                    currentIndex = abs(Int(((offsetY)/CGFloat(size.height))))
+                    if isDivisible(Int(offsetY), by: Int(size.height)) {
+                        currentIndex = abs(Int(((offsetY)/CGFloat(size.height))))
+                    }
                 } else {
                     offsetX = value
-                    currentIndex = abs(Int(((offsetX)/CGFloat(size.width))))
+                    if isDivisible(Int(offsetX), by: Int(size.width)) {
+                        currentIndex = abs(Int(((offsetX)/CGFloat(size.width))))
+                    }
                 }
             }
         }
@@ -105,6 +111,11 @@ struct ImageScrollPreferenceKey: PreferenceKey {
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value += nextValue()
     }
+}
+
+/// - 判断是否可以整除
+func isDivisible(_ dividend: Int, by divisor: Int) -> Bool {
+    return dividend % divisor == 0
 }
 
 #Preview {
