@@ -66,8 +66,6 @@ struct Home: View {
                 } else if selectedDirection == .vertical {
                     /// - 垂直滚动
                     ImageCarouselVertical(
-                        spacing: 20,
-                        trialingSpace:40,
                         index: $currentIndex,
                         items: movies
                     ) { movie in

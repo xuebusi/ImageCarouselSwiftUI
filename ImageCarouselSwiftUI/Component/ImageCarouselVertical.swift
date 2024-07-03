@@ -7,20 +7,44 @@
 
 import SwiftUI
 
+/// - ImageCarouselVertical 组件使用示例
+struct ImageCarouselVerticalExample: View {
+    struct SVMovie: Identifiable {
+        var id = UUID().uuidString
+        var image: String
+    }
+    
+    let images: [SVMovie] = (1...8).map({ SVMovie(image: "m\($0)") })
+    @State var currentIndex: Int = 0
+    
+    var body: some View {
+        ImageCarouselVertical(index: $currentIndex, items: images) { movie in
+            Image(movie.image)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(10)
+                .padding(.horizontal, 10)
+        }
+        .overlay {
+            /// - 展示当前图片的索引
+            Text("\(currentIndex)")
+                .padding()
+                .font(.title)
+                .background(.blue)
+                .clipShape(Circle())
+        }
+    }
+}
+
 /// - 轮播组件
 struct ImageCarouselVertical<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
     var list: [T]
     
-    var spacing: CGFloat
-    var trialingSpace: CGFloat
     @Binding var index: Int
     
-    init(spacing: CGFloat = 15, trialingSpace: CGFloat = 100, index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T)->Content) {
-        
+    init(index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T)->Content) {
         self.list = items
-        self.spacing = spacing
-        self.trialingSpace = trialingSpace
         self._index = index
         self.content = content
     }
@@ -29,18 +53,18 @@ struct ImageCarouselVertical<Content: View, T: Identifiable>: View {
     @State var currentIndex: Int = 0
     
     var body: some View {
-        GeometryReader{proxy in
+        GeometryReader { proxy in
             
-            let height = proxy.size.height - (trialingSpace - spacing)
+            let height = proxy.size.height
             
-            VStack(spacing: spacing) {
+            VStack(spacing: 0) {
                 ForEach(list){item in
                     content(item)
-                        .frame(height: proxy.size.height - trialingSpace)
+                        .frame(height: proxy.size.height)
                         .offset(y: getOffset(item: item, height: height))
                 }
             }
-            .padding(.horizontal, spacing)
+            .padding(.horizontal, 0)
             .offset(y: (CGFloat(currentIndex) * -height) + offset)
             .gesture(
                 DragGesture()
@@ -67,6 +91,7 @@ struct ImageCarouselVertical<Content: View, T: Identifiable>: View {
             )
         }
         .animation(.easeInOut, value: offset == 0)
+        .ignoresSafeArea()
     }
     
     func getOffset(item: T, height: CGFloat)->CGFloat {
@@ -81,9 +106,9 @@ struct ImageCarouselVertical<Content: View, T: Identifiable>: View {
     }
 }
 
-struct ImageCarouselVertical_Previews: PreviewProvider {
+struct ImageCarouselVerticalExample_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ImageCarouselVerticalExample()
             .preferredColorScheme(.dark)
     }
 }
