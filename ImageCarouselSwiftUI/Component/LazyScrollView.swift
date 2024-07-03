@@ -41,6 +41,8 @@ struct LazyScrollViewExample: View {
                         .background(.blue)
                 }
         }
+        .frame(width: 200, height: 300)
+        .background(.pink)
     }
 }
 
@@ -75,13 +77,18 @@ struct LazyScrollView<Content: View, T: Identifiable>: View {
     
     var body: some View {
         GeometryReader { proxy in
-            Group {
+            ScrollView(direction == .vertical ? .vertical : .horizontal, showsIndicators: false) {
                 if direction == .vertical {
-                    verticalScrollView
+                    LazyVStack(spacing: 0) {
+                        listView()
+                    }
                 } else {
-                    horizontalScrollView
+                    LazyHStack(spacing: 0) {
+                        listView()
+                    }
                 }
             }
+            .scrollTargetBehavior(.paging)
             .onAppear {
                 self.containerSize = proxy.size
             }
@@ -89,33 +96,11 @@ struct LazyScrollView<Content: View, T: Identifiable>: View {
         .ignoresSafeArea()
     }
     
-    var verticalScrollView: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 0) {
-                ForEach(list.indices, id: \.self) { index in
-                    listItemView(index)
-                }
-            }
+    private func listView() -> some View {
+        ForEach(list) { item in
+            content(item)
+                .frame(width: containerSize.width, height: containerSize.height)
         }
-        .scrollTargetBehavior(.paging)
-        .ignoresSafeArea()
-    }
-    
-    var horizontalScrollView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(list.indices, id: \.self) { index in
-                    listItemView(index)
-                }
-            }
-        }
-        .scrollTargetBehavior(.paging)
-        .ignoresSafeArea()
-    }
-    
-    func listItemView(_ index: Int) -> some View {
-        content(list[index])
-            .frame(width: containerSize.width, height: containerSize.height)
     }
 }
 
