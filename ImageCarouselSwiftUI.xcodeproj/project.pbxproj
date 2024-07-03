@@ -19,6 +19,7 @@
 		2B588BB32C3034A10014EE68 /* DraggableBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB22C3034A10014EE68 /* DraggableBallView.swift */; };
 		2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */; };
 		2B844BEE2C3387BC0092F837 /* LazyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B844BED2C3387BC0092F837 /* LazyScrollView.swift */; };
+		2B9724632C34D99B003C13EC /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9724622C34D99B003C13EC /* ImageScrollView.swift */; };
 		2BDE0C072C2F72BC00AD3552 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0C062C2F72BC00AD3552 /* SwiftUIView.swift */; };
 		2BDE0C092C2F9DD100AD3552 /* ImageCarouselLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0C082C2F9DD100AD3552 /* ImageCarouselLayer.swift */; };
 		2BDFB6042C32AF71001B419C /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDFB6032C32AF71001B419C /* ThumbnailView.swift */; };
@@ -38,6 +39,7 @@
 		2B588BB22C3034A10014EE68 /* DraggableBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableBallView.swift; sourceTree = "<group>"; };
 		2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView2.swift; sourceTree = "<group>"; };
 		2B844BED2C3387BC0092F837 /* LazyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyScrollView.swift; sourceTree = "<group>"; };
+		2B9724622C34D99B003C13EC /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		2BDE0C062C2F72BC00AD3552 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		2BDE0C082C2F9DD100AD3552 /* ImageCarouselLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselLayer.swift; sourceTree = "<group>"; };
 		2BDFB6032C32AF71001B419C /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				2B186E822C2EEFCA0073EC79 /* ImageCarouselVertical.swift */,
 				2BDE0C082C2F9DD100AD3552 /* ImageCarouselLayer.swift */,
 				2B0BE4A72C3111A300ED835C /* PhotoStarMarkCarousel.swift */,
+				2B9724622C34D99B003C13EC /* ImageScrollView.swift */,
 				2B844BED2C3387BC0092F837 /* LazyScrollView.swift */,
 			);
 			path = Component;
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B186E7E2C2EE4100073EC79 /* ImageCarouselHorizontal.swift in Sources */,
+				2B9724632C34D99B003C13EC /* ImageScrollView.swift in Sources */,
 				2B186E722C2EE3EB0073EC79 /* ContentView.swift in Sources */,
 				2BDE0C072C2F72BC00AD3552 /* SwiftUIView.swift in Sources */,
 				2B844BEE2C3387BC0092F837 /* LazyScrollView.swift in Sources */,
