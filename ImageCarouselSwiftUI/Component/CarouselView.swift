@@ -16,13 +16,18 @@ struct CarouselView: View {
     
     @State private var movies: [SVMovie] = []
     @State var currentIndex: Int = 0
+    @State private var transitionDirection: Edge = .trailing
     
     var body: some View {
         NavigationView {
-            HStack(spacing: 0) {
+            ZStack {
                 ForEach(movies.indices, id: \.self) { index in
                     if currentIndex == index {
                         ItemCard(image: movies[currentIndex].image)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: transitionDirection),
+                                removal: .move(edge: transitionDirection == .leading ? .trailing : .leading)))
+                            .animation(.easeInOut, value: currentIndex)
                             .onAppear {
                                 print("\(index)加载")
                             }
@@ -38,12 +43,18 @@ struct CarouselView: View {
             .overlay(alignment: .bottom) {
                 HStack {
                     Button("上一张") {
-                        currentIndex = max(0, currentIndex - 1)
+                        withAnimation {
+                            transitionDirection = .leading
+                            currentIndex = max(0, currentIndex - 1)
+                        }
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(currentIndex == 0)
                     Button("下一张") {
-                        currentIndex = min(currentIndex + 1, movies.count - 1)
+                        withAnimation {
+                            transitionDirection = .trailing
+                            currentIndex = min(currentIndex + 1, movies.count - 1)
+                        }
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(currentIndex == movies.count - 1)
