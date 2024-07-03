@@ -8,6 +8,43 @@
 
 import SwiftUI
 
+/// - LazyScrollView 组件用法示例
+struct LazyScrollViewExample: View {
+    
+    struct Photo: Identifiable {
+        var id = UUID().uuidString
+        var thumbnail: String
+    }
+    
+    /// - 保证项目资源中有名为m1～m8的这8张图片
+    let photos: [Photo] = (1...8).map { .init(thumbnail: "m\($0)") }
+    
+    var body: some View {
+        LazyScrollView(list: photos, direction: .horizontal) { photo in
+            Image(photo.thumbnail)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(10)
+                .padding(15)
+                .onAppear {
+                    print("\(photo.thumbnail)加载😊")
+                }
+                .onDisappear {
+                    print("\(photo.thumbnail)卸载😭😭")
+                }
+                .overlay {
+                    /// - 显示照片名称
+                    Text("\(photo.thumbnail)")
+                        .padding()
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .background(.blue)
+                }
+        }
+    }
+}
+
+
 /// - 分页滚动组件（懒加载）
 struct LazyScrollView<Content: View, T: Identifiable>: View {
     let screenWidth = UIScreen.main.bounds.width
@@ -19,16 +56,13 @@ struct LazyScrollView<Content: View, T: Identifiable>: View {
     // 滚动方向
     let direction: Direction
     
-    // 内容间距
-    let padding: CGFloat
+    @State private var containerSize: CGSize = .zero
     
     init(list: [T],
          direction: Direction = .vertical,
-         padding: CGFloat = 15,
          @ViewBuilder content: @escaping (T) -> Content) {
         self.list = list
         self.direction = direction
-        self.padding = padding
         self.content = content
     }
     
@@ -40,11 +74,19 @@ struct LazyScrollView<Content: View, T: Identifiable>: View {
     }
     
     var body: some View {
-        if direction == .vertical {
-            verticalScrollView
-        } else {
-            horizontalScrollView
+        GeometryReader { proxy in
+            Group {
+                if direction == .vertical {
+                    verticalScrollView
+                } else {
+                    horizontalScrollView
+                }
+            }
+            .onAppear {
+                self.containerSize = proxy.size
+            }
         }
+        .ignoresSafeArea()
     }
     
     var verticalScrollView: some View {
@@ -73,46 +115,9 @@ struct LazyScrollView<Content: View, T: Identifiable>: View {
     
     func listItemView(_ index: Int) -> some View {
         content(list[index])
-            .padding(direction == .horizontal ? padding : 0)
-            .frame(width: screenWidth, height: screenHeight)
+            .frame(width: containerSize.width, height: containerSize.height)
     }
 }
-
-/// - 预览测试示例
-struct LazyScrollViewExample: View {
-    
-    struct Photo: Identifiable {
-        var id = UUID().uuidString
-        var thumbnail: String
-    }
-    
-    /// - 保证项目资源中有名为m1～m8的这8张图片
-    let photos: [Photo] = (1...8).map { .init(thumbnail: "m\($0)") }
-    
-    var body: some View {
-        LazyScrollView(list: photos, direction: .horizontal, padding: 15) { photo in
-            Image(photo.thumbnail)
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(10)
-                .onAppear {
-                    print("\(photo.thumbnail)加载😊")
-                }
-                .onDisappear {
-                    print("\(photo.thumbnail)卸载😭😭")
-                }
-                .overlay {
-                    /// - 显示照片名称
-                    Text("\(photo.thumbnail)")
-                        .padding()
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .background(.blue)
-                }
-        }
-    }
-}
-
 
 #Preview {
     LazyScrollViewExample()
