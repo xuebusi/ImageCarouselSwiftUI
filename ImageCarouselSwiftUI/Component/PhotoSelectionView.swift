@@ -10,14 +10,26 @@ import SwiftUI
 // 图片选择器组件使用示例
 struct PhotoSelectionExampleView: View {
     let photos = (1...10).map({ GridPhoto(image: "Pic \($0)") })
+    @State private var isSelectionEnabled: Bool = false
     
     var body: some View {
         NavigationStack {
-            PhotoSelectionView(list: photos) { photo in
-                Image(photo.image)
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
+            PhotoSelectionView(list: photos, isSelectionEnabled: $isSelectionEnabled) { photo in
+                if isSelectionEnabled {
+                    Image(photo.image)
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                } else {
+                    NavigationLink {
+                        PhotoDetailView(photo: photo)
+                    } label: {
+                        Image(photo.image)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                    }
+                }
             } onSelectionChange: { ids in
                 for id in ids {
                     print(id)
@@ -51,6 +63,21 @@ struct GridPhoto: Identifiable {
     var image: String
 }
 
+// 照片详情页面
+struct PhotoDetailView: View {
+    let photo: GridPhoto
+    
+    var body: some View {
+        VStack {
+            Image(photo.image)
+                .resizable()
+                .scaledToFit()
+                .navigationTitle("照片详情")
+                .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
 // 图片选择器组件
 struct PhotoSelectionView<Content: View, T: Identifiable>: View {
     let screenWidth = UIScreen.main.bounds.width
@@ -58,7 +85,7 @@ struct PhotoSelectionView<Content: View, T: Identifiable>: View {
     
     @State var list: [T]
     @State var selectedIds: Set<T.ID> = []
-    @State private var isSelectionEnabled = false
+    @Binding private var isSelectionEnabled: Bool
     @State private var buttonText: ButtonTitle = .selectAll
     
     var content: (T) -> Content
@@ -66,9 +93,11 @@ struct PhotoSelectionView<Content: View, T: Identifiable>: View {
     
     // 自定义初始化方法
     init(list: [T],
+         isSelectionEnabled: Binding<Bool>,
          @ViewBuilder content: @escaping (T) -> Content,
          onSelectionChange: ((Set<T.ID>) -> Void)? = nil) {
         self._list = State(wrappedValue: list)
+        self._isSelectionEnabled = isSelectionEnabled
         self.content = content
         self.onSelectionChange = onSelectionChange
     }
