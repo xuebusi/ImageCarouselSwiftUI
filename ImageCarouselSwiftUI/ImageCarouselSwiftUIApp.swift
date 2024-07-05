@@ -12,7 +12,8 @@ struct ImageCarouselSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             //ContentView()
-            CarouselView()
+            //CarouselView()
+            PhotoSelectionExampleView()
                 .preferredColorScheme(.dark)
         }
     }

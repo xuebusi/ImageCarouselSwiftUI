@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0242C02C35745800DD2B1E /* DragableBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0242BF2C35745800DD2B1E /* DragableBallView.swift */; };
+		2B0242C22C35839700DD2B1E /* ShowOffsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0242C12C35839700DD2B1E /* ShowOffsetView.swift */; };
 		2B0BE4A82C3111A300ED835C /* PhotoStarMarkCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0BE4A72C3111A300ED835C /* PhotoStarMarkCarousel.swift */; };
 		2B186E702C2EE3EB0073EC79 /* ImageCarouselSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E6F2C2EE3EB0073EC79 /* ImageCarouselSwiftUIApp.swift */; };
 		2B186E722C2EE3EB0073EC79 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E712C2EE3EB0073EC79 /* ContentView.swift */; };
@@ -15,6 +17,7 @@
 		2B186E7E2C2EE4100073EC79 /* ImageCarouselHorizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E7D2C2EE4100073EC79 /* ImageCarouselHorizontal.swift */; };
 		2B186E802C2EE44A0073EC79 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E7F2C2EE44A0073EC79 /* Home.swift */; };
 		2B186E832C2EEFCA0073EC79 /* ImageCarouselVertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B186E822C2EEFCA0073EC79 /* ImageCarouselVertical.swift */; };
+		2B52C6682C381B93006BF278 /* PhotoSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B52C6672C381B93006BF278 /* PhotoSelectionView.swift */; };
 		2B588BB12C2FEBCE0014EE68 /* SwiftUIView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */; };
 		2B588BB32C3034A10014EE68 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B588BB22C3034A10014EE68 /* CarouselView.swift */; };
 		2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */; };
@@ -26,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B0242BF2C35745800DD2B1E /* DragableBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragableBallView.swift; sourceTree = "<group>"; };
+		2B0242C12C35839700DD2B1E /* ShowOffsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowOffsetView.swift; sourceTree = "<group>"; };
 		2B0BE4A72C3111A300ED835C /* PhotoStarMarkCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStarMarkCarousel.swift; sourceTree = "<group>"; };
 		2B186E6C2C2EE3EB0073EC79 /* ImageCarouselSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCarouselSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B186E6F2C2EE3EB0073EC79 /* ImageCarouselSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselSwiftUIApp.swift; sourceTree = "<group>"; };
@@ -35,6 +40,7 @@
 		2B186E7D2C2EE4100073EC79 /* ImageCarouselHorizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselHorizontal.swift; sourceTree = "<group>"; };
 		2B186E7F2C2EE44A0073EC79 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		2B186E822C2EEFCA0073EC79 /* ImageCarouselVertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselVertical.swift; sourceTree = "<group>"; };
+		2B52C6672C381B93006BF278 /* PhotoSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionView.swift; sourceTree = "<group>"; };
 		2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView3.swift; sourceTree = "<group>"; };
 		2B588BB22C3034A10014EE68 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView2.swift; sourceTree = "<group>"; };
@@ -85,6 +91,8 @@
 				2B5FD01E2C2FD88200CD6F79 /* SwiftUIView2.swift */,
 				2B588BB02C2FEBCE0014EE68 /* SwiftUIView3.swift */,
 				2BDFB6032C32AF71001B419C /* ThumbnailView.swift */,
+				2B0242BF2C35745800DD2B1E /* DragableBallView.swift */,
+				2B0242C12C35839700DD2B1E /* ShowOffsetView.swift */,
 			);
 			path = ImageCarouselSwiftUI;
 			sourceTree = "<group>";
@@ -107,6 +115,7 @@
 				2B9724622C34D99B003C13EC /* ImageScrollView.swift */,
 				2B844BED2C3387BC0092F837 /* LazyScrollView.swift */,
 				2B588BB22C3034A10014EE68 /* CarouselView.swift */,
+				2B52C6672C381B93006BF278 /* PhotoSelectionView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -183,6 +192,7 @@
 			files = (
 				2B186E7E2C2EE4100073EC79 /* ImageCarouselHorizontal.swift in Sources */,
 				2B9724632C34D99B003C13EC /* ImageScrollView.swift in Sources */,
+				2B0242C22C35839700DD2B1E /* ShowOffsetView.swift in Sources */,
 				2B186E722C2EE3EB0073EC79 /* ContentView.swift in Sources */,
 				2BDE0C072C2F72BC00AD3552 /* SwiftUIView.swift in Sources */,
 				2B844BEE2C3387BC0092F837 /* LazyScrollView.swift in Sources */,
@@ -191,6 +201,8 @@
 				2B186E702C2EE3EB0073EC79 /* ImageCarouselSwiftUIApp.swift in Sources */,
 				2B5FD01F2C2FD88200CD6F79 /* SwiftUIView2.swift in Sources */,
 				2B186E832C2EEFCA0073EC79 /* ImageCarouselVertical.swift in Sources */,
+				2B0242C02C35745800DD2B1E /* DragableBallView.swift in Sources */,
+				2B52C6682C381B93006BF278 /* PhotoSelectionView.swift in Sources */,
 				2BDE0C092C2F9DD100AD3552 /* ImageCarouselLayer.swift in Sources */,
 				2BDFB6042C32AF71001B419C /* ThumbnailView.swift in Sources */,
 				2B0BE4A82C3111A300ED835C /* PhotoStarMarkCarousel.swift in Sources */,
