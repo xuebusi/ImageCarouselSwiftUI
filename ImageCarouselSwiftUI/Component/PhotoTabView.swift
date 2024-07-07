@@ -47,8 +47,7 @@ struct PhotoTabView: View {
                     .gesture(gestureHandler(index))
             }
         }
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        .tabViewStyle(.page(indexDisplayMode: .never))
         .overlay {
             if !photos.isEmpty {
                 ControlButtonView()
