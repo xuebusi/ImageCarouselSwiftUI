@@ -20,7 +20,7 @@ struct LazyScrollViewExample: View {
     @State private var movies: [Movie] = []
     
     var body: some View {
-        LazyScrollView(list: movies, axis: .horizontal) { photo in
+        LazyScrollView(list: movies, axis: .vertical) { photo in
             Image(photo.thumbnail)
                 .resizable()
                 .scaledToFit()
